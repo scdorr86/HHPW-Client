@@ -1,9 +1,24 @@
 import { Button } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
 import { signOut } from '../utils/auth';
 import { useAuth } from '../utils/context/authContext';
+import { getSingleUser } from '../api/userData';
 
 function Home() {
+  const [checkUser, setCheckUser] = useState();
   const { user } = useAuth();
+  // console.log('the user:', user, user.uid);
+
+  const checkUserExist = () => {
+    getSingleUser(user.uid).then(setCheckUser);
+  };
+
+  useEffect(() => {
+    checkUserExist();
+  }, [user.uid]);
+
+  console.log('checking user from db:', checkUser);
+
   return (
     <div
       className="text-center d-flex flex-column justify-content-center align-content-center"
@@ -14,8 +29,21 @@ function Home() {
         margin: '0 auto',
       }}
     >
-      <h1>Hello {user.fbUser.displayName}! </h1>
-      <p>Your Bio: {user.bio}</p>
+      <h1>Hip Hop Pizza and Wings!</h1>
+
+      <br />
+      {Array.isArray(checkUser) && checkUser.length > 0 ? (
+        <>
+          {/* <p>Please Register</p> */}
+          <h3>Hello {checkUser[0].name}! </h3><p>Number of orders: {checkUser[0].orders.length}</p>
+        </>
+      ) : (
+        <>
+          {/* <h3>Hello {checkUser[0].name}! </h3><p>Your Bio: {user.bio}</p> */}
+          <p>Please Register</p>
+        </>
+      ) }
+
       <p>Click the button below to logout!</p>
       <Button variant="danger" type="button" size="lg" className="copy-btn" onClick={signOut}>
         Sign Out
