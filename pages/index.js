@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { signOut } from '../utils/auth';
@@ -35,7 +36,18 @@ function Home() {
       {Array.isArray(checkUser) && checkUser.length > 0 ? (
         <>
           {/* <p>Please Register</p> */}
-          <h3>Hello {checkUser[0].name}! </h3><p>Number of orders: {checkUser[0].orders.length}</p>
+          <h3>Welcome, {checkUser[0].name}! </h3><p>Number of orders: {checkUser[0].orders.length}</p>
+
+          <Link href="/Orders/orders" passHref>
+            <Button variant="success" className="mb-2">View Orders</Button>
+          </Link>
+          <Link href="/Orders/createOrder" passHref>
+            <Button className="mb-2">Create New Order</Button>
+          </Link>
+          <Link href="/revenue" passHref>
+            <Button variant="warning">View Revenue</Button>
+          </Link>
+
         </>
       ) : (
         <>
@@ -44,10 +56,10 @@ function Home() {
         </>
       ) }
 
-      <p>Click the button below to logout!</p>
+      {/* <p>Click the button below to logout!</p>
       <Button variant="danger" type="button" size="lg" className="copy-btn" onClick={signOut}>
         Sign Out
-      </Button>
+      </Button> */}
     </div>
   );
 }
