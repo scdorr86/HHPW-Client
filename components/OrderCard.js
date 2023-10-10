@@ -7,8 +7,8 @@ import { deleteSingleOrder } from '../api/orderData';
 function OrderCard({ orderObj }) {
   const router = useRouter();
 
-  const deletePost = () => {
-    if (window.confirm('Delete this Post?')) {
+  const deleteOrder = () => {
+    if (window.confirm('Delete this Order?')) {
       deleteSingleOrder(orderObj?.id).then(() => router.push('/Orders/orders'));
     }
   };
@@ -18,7 +18,7 @@ function OrderCard({ orderObj }) {
     router.push(`/Orders/${orderObj?.id}`);
   };
 
-  console.log('this is the post obj:', orderObj);
+  console.log('this is the order obj:', orderObj);
 
   return (
     <Card style={{ width: '18rem' }}>
@@ -31,7 +31,7 @@ function OrderCard({ orderObj }) {
       <Button variant="primary" onClick={viewOrderDetails}>
         View Details
       </Button>
-      <Button variant="danger" onClick={deletePost}>
+      <Button variant="danger" onClick={deleteOrder}>
         Delete
       </Button>
       {/* <OrderForm orderObj={orderObj} /> */}
