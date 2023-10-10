@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getAllorders, getSingleorder } from '../../api/orderData';
+import { getAllorders } from '../../api/orderData';
 import OrderCard from '../../components/OrderCard';
 
 function OrdersPage() {

@@ -40,7 +40,7 @@ export default function AddItemForm({ orderId }) {
     e.preventDefault();
 
     console.log('on submit:', orderId, itemID);
-    // addItemOrder(orderId, itemID).then(router.push(`/Orders/${orderId}`));
+    addItemOrder(orderId, itemID).then(handleClose());
   };
 
   return (
@@ -67,10 +67,11 @@ export default function AddItemForm({ orderId }) {
                 type="text"
                 placeholder="Select Item"
                 name="itemId"
-                value={itemId}
+                value={itemID}
                 onChange={handleChange}
                 required
               >
+                <option> </option>
                 {items?.map((item) => (
                   <option key={item.id} value={item?.id}>{item.itemName}.....${item.price}</option>
                 ))}
@@ -88,6 +89,6 @@ export default function AddItemForm({ orderId }) {
 
 AddItemForm.propTypes = {
   orderId: PropTypes.shape({
-    orderId: PropTypes.number,
+    orderId: PropTypes.string,
   }).isRequired,
 };

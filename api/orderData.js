@@ -40,7 +40,7 @@ const deleteSingleOrder = (orderId) => new Promise((resolve, reject) => {
 });
 
 const addItemOrder = (orderId, itemId) => new Promise((resolve, reject) => {
-  fetch(`https://localhost:5232/api/order/${orderId}/items/${itemId}`, {
+  fetch(`http://localhost:5232/api/order/${orderId}/items/${itemId}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ const addItemOrder = (orderId, itemId) => new Promise((resolve, reject) => {
 });
 
 const deleteItemOrder = (orderId, itemId) => new Promise((resolve, reject) => {
-  fetch(`https://localhost:5232/api/orders/${orderId}/items/${itemId}`, {
+  fetch(`http://localhost:5232/api/orders/${orderId}/items/${itemId}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
