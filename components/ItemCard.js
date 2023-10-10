@@ -2,13 +2,13 @@ import PropTypes from 'prop-types';
 // import { useRouter } from 'next/router';
 // import { useEffect, useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
+import { deleteItemOrder } from '../api/orderData';
 
 function ItemCard({ itemObj }) {
   // const router = useRouter();
-
   const deleteItemFromOrder = () => {
-    if (window.confirm('Delete this item?')) {
-      // deleteSingleItem(itemObj?.id).then(() => router.push('/Orders/$'));
+    if (window.confirm(`Delete ${itemObj?.itemName} from order ${itemObj?.orderId}?`)) {
+      deleteItemOrder(itemObj?.orderId, itemObj.id);
     }
   };
 
@@ -36,6 +36,7 @@ ItemCard.propTypes = {
     itemTypeId: PropTypes.number,
     price: PropTypes.number,
     id: PropTypes.number,
+    orderId: PropTypes.number,
   }).isRequired,
 };
 

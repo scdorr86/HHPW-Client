@@ -34,7 +34,7 @@ function OrderDetails() {
 
       <div className="d-flex flex-column">
         {order[0]?.items?.map((item) => (
-          <ItemCard key={item?.id} itemObj={item} />
+          <ItemCard key={item?.id} itemObj={{ ...item, orderId: order[0]?.id }} />
         ))}
       </div>
 
