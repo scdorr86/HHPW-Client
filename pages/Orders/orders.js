@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getAllorders } from '../../api/orderData';
+import OrderCard from '../../components/OrderCard';
 
 function OrdersPage() {
   const [orders, setOrders] = useState([]);
@@ -13,6 +14,7 @@ function OrdersPage() {
   }, []);
 
   console.log('these are Orders:', orders);
+
   return (
     <>
       {/* <AddOrderForm /> */}
@@ -29,10 +31,10 @@ function OrdersPage() {
         <h1>All Orders</h1>
 
       </div>
-      {/* <div className="d-flex justify-content-between">
+      <div className="d-flex justify-content-between">
         {orders?.map((order) => (
           <OrderCard key={order.id} orderObj={order} />))}
-      </div> */}
+      </div>
     </>
   );
 }
