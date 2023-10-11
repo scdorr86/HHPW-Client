@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
+import Link from 'next/link';
 import { getSingleOrder } from '../../api/orderData';
 import ItemCard from '../../components/ItemCard';
 import AddItemForm from '../../components/AddItemModal';
@@ -40,6 +41,11 @@ function OrderDetails() {
 
       <div>
         <AddItemForm orderId={order[0]?.id} />
+        <Link href="/items/createItem" passHref>
+          <Button variant="info">
+            Add New Item
+          </Button>
+        </Link>
         <Button variant="primary">
           Go to Payment
         </Button>

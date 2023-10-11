@@ -51,7 +51,7 @@ export default function AddItemForm({ orderId }) {
         onClick={handleShow}
         style={{ minWidth: '125px' }}
       >
-        Add Item
+        Add Existing Menu Item
       </Button>
 
       <Modal show={show} onHide={handleClose}>
