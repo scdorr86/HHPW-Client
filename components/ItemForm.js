@@ -22,6 +22,10 @@ function NewItemForm({ itemObj }) {
   console.log('orderID from route:', itemId);
 
   useEffect(() => {
+    if (itemObj[0]?.id) setFormdata(itemObj[0]);
+  }, [itemObj]);
+
+  useEffect(() => {
     getAllItemTypes()?.then((data) => setItemTypes(data));
   }, []);
 

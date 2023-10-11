@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -13,7 +13,7 @@ const itemId = 0;
 export default function AddItemForm({ orderId }) {
   const [show, setShow] = useState(false);
   const [itemID, setItemID] = useState(itemId);
-  const router = useRouter();
+  // const router = useRouter();
   const [items, setItems] = useState();
 
   const handleClose = () => {

@@ -3,8 +3,8 @@ import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
 import { Form } from 'react-bootstrap';
 import { useRouter } from 'next/router';
-import { createItem, getAllItemTypes, updateItem } from '../api/itemData';
 import { useAuth } from '../utils/context/authContext';
+import { createOrder, getAllOrderTypes, updateOrder } from '../api/orderData';
 
 const initialState = {
   orderStatusId: 1,
@@ -22,7 +22,7 @@ function NewOrderForm({ orderObj }) {
   console.log(user);
 
   useEffect(() => {
-    getAllItemTypes().then((data) => setItemTypes(data));
+    getAllOrderTypes().then((data) => setItemTypes(data));
   }, []);
 
   const handleChange = (e) => {
@@ -38,13 +38,13 @@ function NewOrderForm({ orderObj }) {
     e.preventDefault();
     if (orderObj.userId) {
       const updatePayload = { ...formData };
-      updateItem(orderObj.userId, updatePayload)
-        .then(() => router.push('/'));
+      updateOrder(orderObj.userId, updatePayload)
+        .then(() => router.push('/Orders/orders'));
     } else {
-      const payload = { ...formData };
+      const payload = { ...formData, userId: user[0].uid };
       console.log('this is the submit item payload', payload);
-      createItem(payload)
-        .then(() => router.push('/'));
+      createOrder(payload)
+        .then(() => router.push('/Orders/orders'));
     }
   };
 
@@ -53,12 +53,12 @@ function NewOrderForm({ orderObj }) {
       <h1>{orderObj.userId ? 'Edit' : 'Create New'} Order </h1>
       <Form onSubmit={handleSubmit}>
 
-        <Form.Group className="mb-3" controlId="itemName">
+        <Form.Group className="mb-3" controlId="orderName">
           <Form.Control
             type="text"
-            placeholder="Item Name"
-            name="itemName"
-            value={formData.itemName}
+            placeholder="Order Name"
+            name="orderName"
+            value={formData.orderName}
             onChange={handleChange}
             required
           />
