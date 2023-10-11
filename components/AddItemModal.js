@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -13,12 +13,11 @@ const itemId = 0;
 export default function AddItemForm({ orderId }) {
   const [show, setShow] = useState(false);
   const [itemID, setItemID] = useState(itemId);
-  const router = useRouter();
+  // const router = useRouter();
   const [items, setItems] = useState();
 
   const handleClose = () => {
-    setShow(false);
-    router.push(`/Orders/${orderId}`);
+    window.location.reload();
   };
 
   const handleShow = () => setShow(true);
@@ -40,7 +39,7 @@ export default function AddItemForm({ orderId }) {
     e.preventDefault();
 
     console.log('on submit:', orderId, itemID);
-    addItemOrder(orderId, itemID).then(handleClose());
+    addItemOrder(orderId, itemID).then(handleClose);
   };
 
   return (
@@ -51,7 +50,7 @@ export default function AddItemForm({ orderId }) {
         onClick={handleShow}
         style={{ minWidth: '125px' }}
       >
-        Add Item
+        Add Existing Menu Item
       </Button>
 
       <Modal show={show} onHide={handleClose}>

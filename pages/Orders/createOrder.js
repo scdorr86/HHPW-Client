@@ -5,9 +5,11 @@
 // import { useAuth } from '../utils/context/authContext';
 // import { getSingleUser } from '../api/userData';
 
+import NewOrderForm from '../../components/OrderForm';
+
 function CreateOrder() {
   return (
-    <div><h1>TEST CREATE LINK</h1></div>
+    <><div><h1>TEST CREATE LINK</h1></div><NewOrderForm /></>
   );
 }
 

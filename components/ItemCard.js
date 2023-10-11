@@ -2,13 +2,14 @@ import PropTypes from 'prop-types';
 // import { useRouter } from 'next/router';
 // import { useEffect, useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
+import Link from 'next/link';
 import { deleteItemOrder } from '../api/orderData';
 
 function ItemCard({ itemObj }) {
   // const router = useRouter();
   const deleteItemFromOrder = () => {
     if (window.confirm(`Delete ${itemObj?.itemName} from order ${itemObj?.orderId}?`)) {
-      deleteItemOrder(itemObj?.orderId, itemObj.id);
+      deleteItemOrder(itemObj?.orderId, itemObj.id).then(window.location.reload());
     }
   };
 
@@ -19,9 +20,11 @@ function ItemCard({ itemObj }) {
       <Card.Title>Item: {itemObj?.itemName}</Card.Title>
       <Card.Text>Price: ${itemObj?.price}</Card.Text>
 
-      <Button className="btn btn-light" onClick={console.log('test edit')}>
-        Edit
-      </Button>
+      <Link href={`/items/updateItem?itemId=${itemObj?.id}`} passHref>
+        <Button className="btn btn-light" onClick={console.log('test edit', itemObj?.id)}>
+          Edit Item
+        </Button>
+      </Link>
 
       <Button style={{ color: 'red' }} className="btn btn-light" onClick={deleteItemFromOrder}>
         Delete
