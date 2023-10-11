@@ -17,8 +17,7 @@ export default function AddItemForm({ orderId }) {
   const [items, setItems] = useState();
 
   const handleClose = () => {
-    setShow(false);
-    router.push(`/Orders/${orderId}`);
+    window.location.reload();
   };
 
   const handleShow = () => setShow(true);
@@ -40,7 +39,7 @@ export default function AddItemForm({ orderId }) {
     e.preventDefault();
 
     console.log('on submit:', orderId, itemID);
-    addItemOrder(orderId, itemID).then(handleClose());
+    addItemOrder(orderId, itemID).then(handleClose);
   };
 
   return (

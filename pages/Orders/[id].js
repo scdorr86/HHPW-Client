@@ -41,9 +41,9 @@ function OrderDetails() {
 
       <div>
         <AddItemForm orderId={order[0]?.id} />
-        <Link href="/items/createItem" passHref>
+        <Link href={`/items/createItem?orderId=${order[0]?.id}`} passHref>
           <Button variant="info">
-            Add New Item
+            Create New Menu Item
           </Button>
         </Link>
         <Button variant="primary">

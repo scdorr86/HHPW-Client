@@ -8,16 +8,21 @@ import { createItem, getAllItemTypes, updateItem } from '../api/itemData';
 const initialState = {
   itemName: '',
   itemTypeId: 0,
-  price: 0,
+  price: '',
 };
 
 function NewItemForm({ itemObj }) {
   const router = useRouter();
+  const { orderId } = router?.query;
+  const { itemId } = router?.query;
   const [formData, setFormdata] = useState(initialState);
   const [itemTypes, setItemTypes] = useState();
 
+  console.log('orderID from route:', orderId);
+  console.log('orderID from route:', itemId);
+
   useEffect(() => {
-    getAllItemTypes().then((data) => setItemTypes(data));
+    getAllItemTypes()?.then((data) => setItemTypes(data));
   }, []);
 
   const handleChange = (e) => {
@@ -31,21 +36,21 @@ function NewItemForm({ itemObj }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (itemObj.id) {
+    if (itemObj[0]?.id) {
       const updatePayload = { ...formData };
-      updateItem(itemObj.id, updatePayload)
-        .then(() => router.push('/'));
+      updateItem(itemObj[0]?.id, updatePayload)
+        .then(() => router.push('/Orders/orders'));
     } else {
       const payload = { ...formData };
       console.log('this is the submit item payload', payload);
       createItem(payload)
-        .then(() => router.push('/'));
+        .then(() => router.push(`/Orders/${orderId}`));
     }
   };
 
   return (
     <>
-      <h1>{itemObj.id ? 'Edit' : 'Add New'} Item </h1>
+      <h1>{itemObj[0]?.id ? 'Edit' : 'Add New'} Item </h1>
       <Form onSubmit={handleSubmit}>
 
         <Form.Group className="mb-3" controlId="itemName">
@@ -61,7 +66,7 @@ function NewItemForm({ itemObj }) {
 
         <Form.Group className="mb-3" controlId="price">
           <Form.Control
-            type="text"
+            type="number"
             name="price"
             value={formData.price}
             onChange={handleChange}
@@ -79,7 +84,7 @@ function NewItemForm({ itemObj }) {
             onChange={handleChange}
             required
           >
-            {/* <option value="">Select Item Type </option> */}
+            <option value="">Select Item Type </option>
             {itemTypes?.map((type) => (
               <option key={type.id} value={type?.id}>{type.name}</option>
             ))}
