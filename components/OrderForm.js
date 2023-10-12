@@ -5,11 +5,12 @@ import { Form } from 'react-bootstrap';
 import { useRouter } from 'next/router';
 import { useAuth } from '../utils/context/authContext';
 import { createOrder, getAllOrderTypes, updateOrder } from '../api/orderData';
+import { getSingleUser } from '../api/userData';
 
 const initialState = {
   orderStatusId: 1,
   orderTypeId: 0,
-  paymentTypeId: 0,
+  paymentTypeId: 1,
   userId: '',
 };
 
@@ -17,21 +18,29 @@ function NewOrderForm({ orderObj }) {
   const router = useRouter();
   const { user } = useAuth();
   const [formData, setFormdata] = useState(initialState);
-  const [itemTypes, setItemTypes] = useState();
-
-  console.log(user);
+  const [userId, setUserId] = useState();
+  const [orderTypes, setOrderTypes] = useState();
 
   useEffect(() => {
-    getAllOrderTypes().then((data) => setItemTypes(data));
+    getSingleUser(user[0]?.uid).then((data) => setUserId(data));
   }, []);
+
+  console.log(user, initialState, userId);
+
+  useEffect(() => {
+    getAllOrderTypes().then((data) => setOrderTypes(data));
+  }, []);
+
+  console.log('orderTypes:', orderTypes);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    const convertValue = (name === 'price' || name === 'itemTypeId') ? Number(value) : value;
+    const convertValue = (name === 'price' || name === 'orderTypeId') ? Number(value) : value;
     setFormdata((prevState) => ({
       ...prevState,
       [name]: convertValue,
     }));
+    console.log('formData on change:', formData);
   };
 
   const handleSubmit = (e) => {
@@ -41,10 +50,13 @@ function NewOrderForm({ orderObj }) {
       updateOrder(orderObj.userId, updatePayload)
         .then(() => router.push('/Orders/orders'));
     } else {
-      const payload = { ...formData, userId: user[0].uid };
+      const payload = { ...formData, userId: userId[0].id, itemIds: [] };
       console.log('this is the submit item payload', payload);
       createOrder(payload)
-        .then(() => router.push('/Orders/orders'));
+        .then((data) => {
+          console.log('return data', data);
+          router.push(`/Orders/${data.id}`);
+        });
     }
   };
 
@@ -53,7 +65,7 @@ function NewOrderForm({ orderObj }) {
       <h1>{orderObj.userId ? 'Edit' : 'Create New'} Order </h1>
       <Form onSubmit={handleSubmit}>
 
-        <Form.Group className="mb-3" controlId="orderName">
+        {/* <Form.Group className="mb-3" controlId="orderName">
           <Form.Control
             type="text"
             placeholder="Order Name"
@@ -73,20 +85,20 @@ function NewOrderForm({ orderObj }) {
             placeholder="Item Price"
             required
           />
-        </Form.Group>
+        </Form.Group> */}
 
-        <Form.Group controlId="floatingInput1" label="ItemType" className="mb-3">
+        <Form.Group controlId="floatingInput1" label="OrderType" className="mb-3">
           <Form.Select
             type="text"
-            placeholder="Select Item Type"
-            name="itemTypeId"
-            value={formData.itemTypeId}
+            placeholder="Select Order Type"
+            name="orderTypeId"
+            value={formData.orderTypeId}
             onChange={handleChange}
             required
           >
-            {/* <option value="">Select Item Type </option> */}
-            {itemTypes?.map((type) => (
-              <option key={type.id} value={type?.id}>{type.name}</option>
+            {/* <option value="">Select Order Type </option> */}
+            {orderTypes?.map((type) => (
+              <option key={type.id} value={type?.id}>{type.orderTypeName}</option>
             ))}
           </Form.Select>
         </Form.Group>

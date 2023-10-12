@@ -9,7 +9,7 @@ import NewOrderForm from '../../components/OrderForm';
 
 function CreateOrder() {
   return (
-    <><div><h1>TEST CREATE LINK</h1></div><NewOrderForm /></>
+    <><NewOrderForm /></>
   );
 }
 
