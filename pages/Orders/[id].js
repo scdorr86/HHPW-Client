@@ -31,7 +31,7 @@ function OrderDetails() {
 
   return (
     <>
-      <div><h1>Order Total: {order[0]?.orderTotal}</h1></div>
+      <div><h1>Order Total: ${order[0]?.orderTotal}</h1></div>
 
       <div className="d-flex flex-column">
         {order[0]?.items?.map((item) => (
@@ -46,9 +46,11 @@ function OrderDetails() {
             Create New Menu Item
           </Button>
         </Link>
-        <Button variant="primary">
-          Go to Payment
-        </Button>
+        <Link href={`/Orders/payOrder?orderId=${order[0]?.id}`} passHref>
+          <Button variant="primary">
+            Go to Payment
+          </Button>
+        </Link>
       </div>
     </>
   );

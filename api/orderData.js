@@ -28,7 +28,7 @@ const getSingleOrder = (orderId) => new Promise((resolve, reject) => {
 });
 
 const deleteSingleOrder = (orderId) => new Promise((resolve, reject) => {
-  fetch(`https://localhost:5232/api/order/${orderId}`, {
+  fetch(`http://localhost:5232/api/order/${orderId}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -88,8 +88,8 @@ const createOrder = (payload) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const updateOrder = (itemid, payload) => new Promise((resolve, reject) => {
-  fetch(`http://localhost:5232/api/updateitem/${itemid}`, {
+const updateOrder = (orderid, payload) => new Promise((resolve, reject) => {
+  fetch(`http://localhost:5232/order/${orderid}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -98,6 +98,18 @@ const updateOrder = (itemid, payload) => new Promise((resolve, reject) => {
   })
     .then((response) => response.json())
     .then(resolve)
+    .catch(reject);
+});
+
+const getAllPaymentTypes = () => new Promise((resolve, reject) => {
+  fetch('http://localhost:5232/paymentTypes', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => resolve(Object.values(data)))
     .catch(reject);
 });
 
@@ -110,4 +122,5 @@ export {
   getAllOrderTypes,
   createOrder,
   updateOrder,
+  getAllPaymentTypes,
 };

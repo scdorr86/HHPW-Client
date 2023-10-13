@@ -8,8 +8,8 @@ function OrderCard({ orderObj }) {
   const router = useRouter();
 
   const deleteOrder = () => {
-    if (window.confirm('Delete this Order?')) {
-      deleteSingleOrder(orderObj?.id).then(() => router.push('/Orders/orders'));
+    if (window.confirm(`Delete Order ${orderObj?.id}?`)) {
+      deleteSingleOrder(orderObj?.id).then(() => window.location.reload());
     }
   };
 
