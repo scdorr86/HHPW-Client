@@ -8,8 +8,8 @@ function OrderCard({ orderObj }) {
   const router = useRouter();
 
   const deleteOrder = () => {
-    if (window.confirm('Delete this Order?')) {
-      deleteSingleOrder(orderObj?.id).then(() => router.push('/Orders/orders'));
+    if (window.confirm(`Delete Order ${orderObj?.id}?`)) {
+      deleteSingleOrder(orderObj?.id).then(() => window.location.reload());
     }
   };
 
@@ -21,7 +21,7 @@ function OrderCard({ orderObj }) {
   console.log('this is the order obj:', orderObj);
 
   return (
-    <Card style={{ width: '18rem' }}>
+    <Card display="flex" className="m-2" style={{ width: '18rem' }}>
       <Card.Title>Order ID: {orderObj?.id}</Card.Title>
       <Card.Text>Status: {orderObj?.status.statusName}</Card.Text>
       <Card.Text>Type: {orderObj?.orderType.orderTypeName}</Card.Text>
