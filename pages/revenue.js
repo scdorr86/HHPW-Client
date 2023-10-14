@@ -80,7 +80,7 @@ function Revenue() {
         </select>
         <br />
         <h4>
-          {filteredOrders.length > 0 ? getOrderStatus(filteredOrders) : 'No Orders'} Order Statistics:
+          {filteredOrders.length > 0 ? getOrderStatus(filteredOrders) : 'Select for'} Order Statistics:
         </h4>
         <ul>
           <li>Total Number of Orders: {filteredOrders?.length}</li>
