@@ -16,7 +16,7 @@ function ItemCard({ itemObj }) {
   console.log('this is the item obj:', itemObj);
 
   return (
-    <Card style={{ width: '18rem' }}>
+    <Card className="m-2" style={{ width: '18rem' }}>
       <Card.Title>Item: {itemObj?.itemName}</Card.Title>
       <Card.Text>Price: ${itemObj?.price}</Card.Text>
 

@@ -39,19 +39,24 @@ function OrderDetails() {
         ))}
       </div>
 
-      <div>
-        <AddItemForm orderId={order[0]?.id} />
-        <Link href={`/items/createItem?orderId=${order[0]?.id}`} passHref>
-          <Button variant="info">
-            Create New Menu Item
-          </Button>
-        </Link>
-        <Link href={`/Orders/payOrder?orderId=${order[0]?.id}`} passHref>
-          <Button variant="primary">
-            Go to Payment
-          </Button>
-        </Link>
-      </div>
+      {order[0]?.orderStatusId === 2 ? (
+        <div />
+      ) : (
+        <div>
+          <AddItemForm orderId={order[0]?.id} />
+          <Link href={`/items/createItem?orderId=${order[0]?.id}`} passHref>
+            <Button variant="info">
+              Create New Menu Item
+            </Button>
+          </Link>
+          <Link href={`/Orders/payOrder?orderId=${order[0]?.id}`} passHref>
+            <Button variant="primary">
+              Go to Payment
+            </Button>
+          </Link>
+        </div>
+      )}
+
     </>
   );
 }

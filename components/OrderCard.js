@@ -21,7 +21,7 @@ function OrderCard({ orderObj }) {
   console.log('this is the order obj:', orderObj);
 
   return (
-    <Card style={{ width: '18rem' }}>
+    <Card display="flex" className="m-2" style={{ width: '18rem' }}>
       <Card.Title>Order ID: {orderObj?.id}</Card.Title>
       <Card.Text>Status: {orderObj?.status.statusName}</Card.Text>
       <Card.Text>Type: {orderObj?.orderType.orderTypeName}</Card.Text>

@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import {
   getAllPaymentTypes,
   getSingleOrder,
-  // updateOrder,
+  updateOrder,
 } from '../../api/orderData';
 
 const PaymentForm = () => {
@@ -19,13 +19,15 @@ const PaymentForm = () => {
 
   useEffect(() => {
     if (orderId) {
-      getSingleOrder(orderId).then((data) => setOrder(data));
+      getSingleOrder(orderId)?.then((data) => setOrder(data));
     }
   }, [orderId]);
 
   useEffect(() => {
-    getAllPaymentTypes().then((data) => setPaymentTypes(data));
+    getAllPaymentTypes()?.then((data) => setPaymentTypes(data));
   }, []);
+
+  console.log('this is the order obj:', order);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,12 +43,12 @@ const PaymentForm = () => {
     e.preventDefault();
     const payload = {
       paymentTypeId: formData.paymentTypeId,
-      orderTypeId: order.orderTypeId,
+      orderTypeId: order[0]?.orderTypeId,
       orderStatusId: 2,
     };
     console.log('submit payload:', payload);
 
-    // updateOrder(orderId, payload).then(() => router.push('/Orders/orders'));
+    updateOrder(orderId, payload)?.then(() => router.push('/Orders/orders'));
   };
 
   if (!order) {
@@ -66,7 +68,7 @@ const PaymentForm = () => {
             required
           >
             <option value={0}>Select Payment Type</option>
-            {paymentTypes.map((type) => (
+            {paymentTypes?.map((type) => (
               <option key={type.id} value={type.id}>
                 {type.paymentTypeDesc}
               </option>
