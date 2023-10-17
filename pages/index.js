@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 // import { signOut } from '../utils/auth';
 import { useAuth } from '../utils/context/authContext';
 import { getSingleUser } from '../api/userData';
+import RegisterForm from '../components/RegisterForm';
 
 function Home() {
   const [checkUser, setCheckUser] = useState();
@@ -53,6 +54,7 @@ function Home() {
         <>
           {/* <h3>Hello {checkUser[0].name}! </h3><p>Your Bio: {user.bio}</p> */}
           <p>Please Register</p>
+          <RegisterForm user={user} />
         </>
       ) }
 

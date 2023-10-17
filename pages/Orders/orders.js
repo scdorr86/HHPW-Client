@@ -2,17 +2,29 @@ import { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { getAllorders } from '../../api/orderData';
 import OrderCard from '../../components/OrderCard';
+import { useAuth } from '../../utils/context/authContext';
+import { getSingleUser } from '../../api/userData';
 
 function OrdersPage() {
   const [orders, setOrders] = useState([]);
+  const [singleUser, setSingleUser] = useState();
   const [filteredOrders, setFilteredOrders] = useState([]);
+  const { user } = useAuth();
 
   const getOrders = () => {
     getAllorders().then(setOrders);
   };
 
+  const getUser = () => {
+    getSingleUser(user.uid).then(setSingleUser);
+  };
+
   useEffect(() => {
     getOrders();
+  }, []);
+
+  useEffect(() => {
+    getUser();
   }, []);
 
   const handleFilter = (e) => {
@@ -21,13 +33,15 @@ function OrdersPage() {
     if (value === 'All') {
       setFilteredOrders(orders);
     } else {
-      const filtered = orders?.filter((o) => o?.status?.statusName?.includes(value));
+      const filtered = orders?.filter((o) => (
+        (o?.status?.statusName?.includes(value) || o?.user?.uid.includes(value))
+      ));
       setFilteredOrders(filtered);
     }
   };
 
-  console.log('these are Orders:', orders);
-
+  console.log('these are Orders and single user:', orders, singleUser);
+  console.log('single userid:', singleUser[0].id);
   return (
     <>
       {/* <AddOrderForm /> */}
@@ -45,15 +59,20 @@ function OrdersPage() {
 
       </div>
       <div className="d-flex justify-content-around m-3">
-        <Button variant="success" value="All" onClick={handleFilter}>
+
+        <Button variant="success" value="All" onClick={handleFilter} className="min-width-button">
           All
         </Button>
-        <Button variant="success" value="Open" onClick={handleFilter}>
+        <Button variant="success" value="Open" onClick={handleFilter} className="min-width-button">
           Open
         </Button>
-        <Button variant="success" value="Closed" onClick={handleFilter}>
+        <Button variant="success" value="Closed" onClick={handleFilter} className="min-width-button">
           Closed
         </Button>
+        <Button variant="success" value={singleUser[0]?.uid} onClick={handleFilter} className="min-width-button">
+          Current User Orders
+        </Button>
+
       </div>
 
       <div className="d-flex justify-content-between">

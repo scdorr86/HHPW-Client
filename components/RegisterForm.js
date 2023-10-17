@@ -2,26 +2,47 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { registerUser } from '../utils/auth'; // Update with path to registerUser
+import { useRouter } from 'next/router';
+import { createUser } from '../api/userData';
 
-function RegisterForm({ user, updateUser }) {
+function RegisterForm({ user }) {
   const [formData, setFormData] = useState({
-    bio: '',
+    name: '',
     uid: user.uid,
+    isEmployee: true,
   });
+  const router = useRouter();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    registerUser(formData).then(() => updateUser(user.uid));
+    createUser(formData).then(() => router.push('/Orders/orders'));
+    console.log('this is the formData:', formData);
   };
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Gamer Bio</Form.Label>
-        <Form.Control as="textarea" name="bio" required placeholder="Enter your Bio" onChange={({ target }) => setFormData((prev) => ({ ...prev, [target.name]: target.value }))} />
-        <Form.Text className="text-muted">Let other gamers know a little bit about you...</Form.Text>
+      <Form.Group className="mb-3" controlId="userName">
+
+        <Form.Label>User Name</Form.Label>
+        <Form.Control type="text" name="name" placeholder="Enter your name" onChange={({ target }) => setFormData((prev) => ({ ...prev, [target.name]: target.value }))} />
+
       </Form.Group>
+
+      <Form.Group className="mb-3">
+        <Form.Label>HPPW Employee?</Form.Label>
+        <div>
+          <label>
+            <input
+              type="checkbox"
+              name="isEmployee"
+              onChange={({ target }) => setFormData((prev) => ({ ...prev, [target.name]: target.checked }))}
+              checked={formData.isEmployee}
+            />
+            Yes
+          </label>
+        </div>
+      </Form.Group>
+
       <Button variant="primary" type="submit">
         Submit
       </Button>
@@ -33,7 +54,7 @@ RegisterForm.propTypes = {
   user: PropTypes.shape({
     uid: PropTypes.string.isRequired,
   }).isRequired,
-  updateUser: PropTypes.func.isRequired,
+  // updateUser: PropTypes.func.isRequired,
 };
 
 export default RegisterForm;
