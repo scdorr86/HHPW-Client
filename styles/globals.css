@@ -20,3 +20,7 @@ a {
 body {
   background-color: gray;
 }
+
+.min-width-button {
+  min-width: 167px; 
+}

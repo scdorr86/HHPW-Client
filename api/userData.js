@@ -27,7 +27,21 @@ const getSingleUser = (uid) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const createUser = (payload) => new Promise((resolve, reject) => {
+  fetch('http://localhost:5232/users', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  })
+    .then((response) => response.json())
+    .then((data) => resolve(data))
+    .catch(reject);
+});
+
 export {
   getAllusers,
   getSingleUser,
+  createUser,
 };

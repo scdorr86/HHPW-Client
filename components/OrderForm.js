@@ -25,7 +25,7 @@ function NewOrderForm({ orderObj }) {
     getSingleUser(user[0]?.uid).then((data) => setUserId(data));
   }, []);
 
-  console.log(user, initialState, userId);
+  console.log('logged:', user, initialState, userId);
 
   useEffect(() => {
     getAllOrderTypes().then((data) => setOrderTypes(data));
@@ -50,7 +50,7 @@ function NewOrderForm({ orderObj }) {
       updateOrder(orderObj.userId, updatePayload)
         .then(() => router.push('/Orders/orders'));
     } else {
-      const payload = { ...formData, userId: userId[0].id, itemIds: [] };
+      const payload = { ...formData, userId: userId[0]?.id, itemIds: [] };
       console.log('this is the submit item payload', payload);
       createOrder(payload)
         .then((data) => {
