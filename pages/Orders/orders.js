@@ -30,17 +30,19 @@ function OrdersPage() {
   const handleFilter = (e) => {
     const { value } = e.target;
     console.log('the value:', value);
+    console.log('userid:', singleUser?.id);
     if (value === 'All') {
       setFilteredOrders(orders);
     } else {
       const filtered = orders?.filter((o) => (
-        (o?.status?.statusName?.includes(value) || o?.user?.uid.includes(value))
+        o?.status?.statusName?.includes(value) || o?.user?.id === parseInt(value, 10)
       ));
       setFilteredOrders(filtered);
     }
   };
 
   console.log('these are Orders and single user:', orders, singleUser);
+
   return (
     <>
       {/* <AddOrderForm /> */}
@@ -68,7 +70,7 @@ function OrdersPage() {
         <Button variant="success" value="Closed" onClick={handleFilter} className="min-width-button">
           Closed
         </Button>
-        <Button variant="success" value={user.uid} onClick={handleFilter} className="min-width-button">
+        <Button variant="success" value={singleUser?.id} onClick={handleFilter} className="min-width-button">
           Current User Orders
         </Button>
 
