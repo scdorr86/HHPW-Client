@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Form } from 'react-bootstrap';
 import { getAllorders } from '../api/orderData';
 
 function Revenue() {
@@ -72,16 +73,17 @@ function Revenue() {
       <br />
 
       <div>
-        <select onChange={handleFilter}>
+        <h4>
+          {filteredOrders.length > 0 ? getOrderStatus(filteredOrders) : 'Select Status for'} Order Statistics:
+        </h4>
+
+        <Form.Select className="rev-input" onChange={handleFilter}>
           <option value="">Select Order Status</option>
           <option value="All">All</option>
           <option value="Open">Open</option>
           <option value="Closed">Closed</option>
-        </select>
+        </Form.Select>
         <br />
-        <h4>
-          {filteredOrders.length > 0 ? getOrderStatus(filteredOrders) : 'Select for'} Order Statistics:
-        </h4>
         <ul>
           <li>Total Number of Orders: {filteredOrders?.length}</li>
           <li>Total Revenue of Orders: ${filteredOrders?.reduce((acc, order) => acc + order?.orderTotal, 0)}</li>

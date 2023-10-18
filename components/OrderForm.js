@@ -50,7 +50,7 @@ function NewOrderForm({ orderObj }) {
       updateOrder(orderObj.userId, updatePayload)
         .then(() => router.push('/Orders/orders'));
     } else {
-      const payload = { ...formData, userId: userId[0]?.id, itemIds: [] };
+      const payload = { ...formData, userId: userId?.id, itemIds: [] };
       console.log('this is the submit item payload', payload);
       createOrder(payload)
         .then((data) => {

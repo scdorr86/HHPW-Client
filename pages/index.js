@@ -34,10 +34,10 @@ function Home() {
       <h1>Hip Hop Pizza and Wings!</h1>
 
       <br />
-      {Array.isArray(checkUser) && checkUser.length > 0 ? (
+      {checkUser ? (
         <>
           {/* <p>Please Register</p> */}
-          <h3>Welcome, {checkUser[0].name}! </h3><p>Number of orders: {checkUser[0].orders.length}</p>
+          <h3>Welcome, {checkUser.name}! </h3><p>Number of orders: {checkUser.orders.length}</p>
 
           <Link href="/Orders/orders" passHref>
             <Button variant="success" className="mb-2">View Orders</Button>

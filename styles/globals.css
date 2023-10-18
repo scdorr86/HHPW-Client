@@ -24,3 +24,7 @@ body {
 .min-width-button {
   min-width: 167px; 
 }
+
+.rev-input {
+  width: 200px;
+};
