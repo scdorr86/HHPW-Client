@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
-// import { useEffect, useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { deleteSingleOrder } from '../api/orderData';
 
